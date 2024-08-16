@@ -10,33 +10,33 @@ using MonoTorrent.Client;
 
 using LiteTorrent;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 Console.OutputEncoding = Encoding.UTF8;
 
 const int httpListeningPort = 55125;
-var settingBuilder = new EngineSettingsBuilder
-{
-    AllowPortForwarding = true,
-    AutoSaveLoadDhtCache = true,
-    AutoSaveLoadFastResume = true,
-    ListenEndPoints = new Dictionary<string, IPEndPoint> {
-                    { "ipv4", new IPEndPoint (IPAddress.Any, 55123) },
-                    { "ipv6", new IPEndPoint (IPAddress.IPv6Any, 55123) }
-                },
-    DhtEndPoint = new IPEndPoint(IPAddress.Any, 55123),
-    HttpStreamingPrefix = $"http://127.0.0.1:{httpListeningPort}/"
-};
 
-var engine = new ClientEngine(settingBuilder.ToSettings());
-Task task = new Downloader(engine).DownloadAsync();
-await task;
-
-/*foreach (var manager in engine.Torrents)
-{
-    var stoppingTask = manager.StopAsync();
-    while (manager.State != TorrentState.Stopped)
+var services = new ServiceCollection();
+services.AddSingleton(
+    new EngineSettingsBuilder
     {
-        await Task.WhenAll(stoppingTask, Task.Delay(250));
+        AllowPortForwarding = true,
+        AutoSaveLoadDhtCache = true,
+        AutoSaveLoadFastResume = true,
+        ListenEndPoints = new Dictionary<string, IPEndPoint> {
+                        { "ipv4", new IPEndPoint (IPAddress.Any, 55123) },
+                        { "ipv6", new IPEndPoint (IPAddress.IPv6Any, 55123) }
+                    },
+        DhtEndPoint = new IPEndPoint(IPAddress.Any, 55123),
+        HttpStreamingPrefix = $"http://127.0.0.1:{httpListeningPort}/"
     }
-    await stoppingTask;
-}*/
+    );
+services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
+services.AddTransient<Downloader>();
+
+services.AddAppSettings();
+
+await using var provider = services.BuildServiceProvider();
+
+var downloader = provider.GetRequiredService<Downloader>();
+await downloader.DownloadAsync();
