@@ -9,6 +9,8 @@ using MonoTorrent;
 using MonoTorrent.Client;
 using MonoTorrent.Connections;
 
+using LiteTorrent.AppConfig;
+
 namespace LiteTorrent
 {
     class Downloader

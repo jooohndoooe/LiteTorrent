@@ -11,6 +11,7 @@ using MonoTorrent.Client;
 using LiteTorrent;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using LiteTorrent.AppConfig;
 
 Console.OutputEncoding = Encoding.UTF8;
 
