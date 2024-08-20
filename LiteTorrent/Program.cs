@@ -12,6 +12,7 @@ using LiteTorrent;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using LiteTorrent.AppConfig;
+using System.Runtime.InteropServices;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -32,12 +33,27 @@ services.AddSingleton(
         HttpStreamingPrefix = $"http://127.0.0.1:{httpListeningPort}/"
     }
     );
-services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
-services.AddTransient<Downloader>();
 
+services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
 services.AddAppSettings();
+services.AddTransient<TorrentManager2>();
+
 
 await using var provider = services.BuildServiceProvider();
 
-var downloader = provider.GetRequiredService<Downloader>();
-await downloader.DownloadAsync();
+
+var torrentManager = provider.GetService<TorrentManager2>();
+var appConfiguration = provider.GetService<AppConfiguration>();
+foreach (var file in Directory.GetFiles(appConfiguration.TorrentPath))
+{
+    Torrent torrent = Torrent.Load(file);
+    await torrentManager.AddTorrent(torrent);
+}
+
+while(torrentManager.isRunning())
+{
+    Console.Clear();
+    Console.WriteLine("\x1b[3J");
+    torrentManager.toConsole();
+    await Task.Delay(1000);
+}

@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+LiteTorrent/Downloads/
+LiteTorrent/Torrents/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

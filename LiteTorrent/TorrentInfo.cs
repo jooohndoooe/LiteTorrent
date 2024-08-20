@@ -17,7 +17,8 @@ namespace LiteTorrent
         List<Double> completion;
         string state;
 
-        public TorrentInfo() {
+        public TorrentInfo()
+        {
             name = "";
             totalCompletion = 0;
             totalFiles = 0;
@@ -26,7 +27,8 @@ namespace LiteTorrent
             state = "";
         }
 
-        public TorrentInfo(TorrentManager manager) {
+        public TorrentInfo(TorrentManager manager)
+        {
             name = manager.Name;
             totalCompletion = manager.Progress;
             totalFiles = manager.Files.Count;
@@ -40,20 +42,24 @@ namespace LiteTorrent
             state = manager.State.ToString();
         }
 
-        public void Update(TorrentManager manager) { 
+        public void Update(TorrentManager manager)
+        {
             name = manager.Name;
             totalCompletion = manager.Progress;
             totalFiles = manager.Files.Count;
-            foreach (var file in manager.Files) {
+            foreach (var file in manager.Files)
+            {
                 fileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + name.Length + 2));
                 completion.Add(file.BitField.PercentComplete);
             }
         }
 
-        public void ToConsole() {
+        public void ToConsole()
+        {
             Console.WriteLine();
-            Console.WriteLine(name + " " + state + " " + Utils.ProgressBar((int)totalCompletion,10) + " " + totalCompletion);
-            for (int i = 0; i < totalFiles; i++) {
+            Console.WriteLine(name + " " + state + " " + Utils.ProgressBar((int)totalCompletion, 10) + " " + totalCompletion);
+            for (int i = 0; i < totalFiles; i++)
+            {
                 Console.WriteLine((i + 1) + ". " + fileNames[i] + " " + Utils.ProgressBar((int)completion[i], 10) + " " + completion[i]);
             }
         }
