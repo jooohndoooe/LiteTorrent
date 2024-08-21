@@ -10,57 +10,42 @@ namespace LiteTorrent
 {
     class TorrentInfo
     {
-        string name;
-        double totalCompletion;
-        int totalFiles;
-        List<string> fileNames;
-        List<Double> completion;
+        string Name { get; set; }
+        double TotalCompletion { get; set; }
+        int TotalFiles { get; set; }
+        List<string> FileNames { get; set; }
+        List<Double> Completion { get; set; }
         string state;
 
         public TorrentInfo()
         {
-            name = "";
-            totalCompletion = 0;
-            totalFiles = 0;
-            fileNames = new List<string>();
-            completion = new List<Double>();
+            Name = "";
+            TotalCompletion = 0;
+            TotalFiles = 0;
+            FileNames = new List<string>();
+            Completion = new List<Double>();
             state = "";
-        }
-
-        public TorrentInfo(TorrentManager manager)
-        {
-            name = manager.Name;
-            totalCompletion = manager.Progress;
-            totalFiles = manager.Files.Count;
-            fileNames = new List<string>();
-            completion = new List<Double>();
-            foreach (var file in manager.Files)
-            {
-                fileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + name.Length + 2));
-                completion.Add(file.BitField.PercentComplete);
-            }
-            state = manager.State.ToString();
         }
 
         public void Update(TorrentManager manager)
         {
-            name = manager.Name;
-            totalCompletion = manager.Progress;
-            totalFiles = manager.Files.Count;
+            Name = manager.Name;
+            TotalCompletion = manager.Progress;
+            TotalFiles = manager.Files.Count;
             foreach (var file in manager.Files)
             {
-                fileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + name.Length + 2));
-                completion.Add(file.BitField.PercentComplete);
+                FileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + Name.Length + 2));
+                Completion.Add(file.BitField.PercentComplete);
             }
         }
 
         public void ToConsole()
         {
             Console.WriteLine();
-            Console.WriteLine(name + " " + state + " " + Utils.ProgressBar((int)totalCompletion, 10) + " " + totalCompletion);
-            for (int i = 0; i < totalFiles; i++)
+            Console.WriteLine(Name + " " + state + " " + Utils.ProgressBar((int)TotalCompletion, 10) + " " + TotalCompletion);
+            for (int i = 0; i < TotalFiles; i++)
             {
-                Console.WriteLine((i + 1) + ". " + fileNames[i] + " " + Utils.ProgressBar((int)completion[i], 10) + " " + completion[i]);
+                Console.WriteLine((i + 1) + ". " + FileNames[i] + " " + Utils.ProgressBar((int)Completion[i], 10) + " " + Completion[i]);
             }
         }
     }

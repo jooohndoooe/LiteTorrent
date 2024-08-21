@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 using MonoTorrent;
 using MonoTorrent.Client;
-
-using LiteTorrent;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using LiteTorrent.AppConfig;
 using System.Runtime.InteropServices;
+using LiteTorrent.TorrentManagerService;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -36,18 +35,18 @@ services.AddSingleton(
 
 services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
 services.AddAppSettings();
-services.AddTransient<TorrentManager2>();
+services.AddTransient<TorrentManagerService>();
 
 
 await using var provider = services.BuildServiceProvider();
 
 
-var torrentManager = provider.GetService<TorrentManager2>();
+var torrentManager = provider.GetService<TorrentManagerService>();
 var appConfiguration = provider.GetService<AppConfiguration>();
 foreach (var file in Directory.GetFiles(appConfiguration.TorrentPath))
 {
-    Torrent torrent = Torrent.Load(file);
-    await torrentManager.AddTorrent(torrent);
+    byte[] torrentBytes = File.ReadAllBytes(file);
+    await torrentManager.AddTorrent(torrentBytes);
 }
 
 while(torrentManager.isRunning())
