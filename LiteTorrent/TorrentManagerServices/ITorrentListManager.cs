@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LiteTorrent.TorrentManagerService
+namespace LiteTorrent.TorrentManagerServices
 {
     internal interface ITorrentListManager
     {
-        List<TorrentInfo> GetTorrentList();
+        Task<List<TorrentInfo>> GetTorrentList();
     }
 }

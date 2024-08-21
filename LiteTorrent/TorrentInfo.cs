@@ -15,7 +15,7 @@ namespace LiteTorrent
         int TotalFiles { get; set; }
         List<string> FileNames { get; set; }
         List<Double> Completion { get; set; }
-        string state;
+        string state { get; set; }
 
         public TorrentInfo()
         {
@@ -37,16 +37,22 @@ namespace LiteTorrent
                 FileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + Name.Length + 2));
                 Completion.Add(file.BitField.PercentComplete);
             }
+            state = manager.State.ToString();
         }
 
         public void ToConsole()
         {
             Console.WriteLine();
-            Console.WriteLine(Name + " " + state + " " + Utils.ProgressBar((int)TotalCompletion, 10) + " " + TotalCompletion);
+            Console.WriteLine(Name + " " + state + " " + Utils.ProgressBar((int)TotalCompletion, 10) + " " + Math.Round(TotalCompletion, 2) + "%");
             for (int i = 0; i < TotalFiles; i++)
             {
-                Console.WriteLine((i + 1) + ". " + FileNames[i] + " " + Utils.ProgressBar((int)Completion[i], 10) + " " + Completion[i]);
+                Console.WriteLine((i + 1) + ". " + FileNames[i] + " " + Utils.ProgressBar((int)Completion[i], 10) + " " + Math.Round(Completion[i], 2) + "%");
             }
+        }
+
+        public string GetName()
+        {
+            return Name;
         }
     }
 }

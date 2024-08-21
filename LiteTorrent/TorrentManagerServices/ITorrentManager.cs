@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 using MonoTorrent;
 using MonoTorrent.Client;
 
-namespace LiteTorrent.TorrentManagerService
+namespace LiteTorrent.TorrentManagerServices
 {
     internal interface ITorrentManager
     {
         Task AddTorrent(byte[] torrentBytes);
-        Task RemoveTorrent(byte[] torrentBytes);
+        Task RemoveTorrent(int id);
     }
 }
