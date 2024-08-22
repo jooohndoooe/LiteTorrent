@@ -18,18 +18,18 @@ namespace LiteTorrent.TorrentManagerServices
     {
         private ClientEngine engine;
         private AppConfiguration appConfiguration;
-        private Task initialisationTask;
+        private Task initializationTask;
 
         public TorrentManagerService(ClientEngine engine, AppConfiguration appConfiguration)
         {
             this.engine = engine;
             this.appConfiguration = appConfiguration;
-            this.initialisationTask = AddExistingTorrents();
+            this.initializationTask = AddExistingTorrents();
         }
 
         public async Task AddTorrent(byte[] torrentBytes)
         {
-            await initialisationTask;
+            await initializationTask;
             Torrent torrent = Torrent.Load(torrentBytes);
             var manager = await engine.AddAsync(torrent, appConfiguration.DownloadPath);
             await manager.StartAsync();
@@ -38,7 +38,7 @@ namespace LiteTorrent.TorrentManagerServices
 
         public async Task RemoveTorrent(int id)
         {
-            await initialisationTask;
+            await initializationTask;
             if (id < 0 || id >= engine.Torrents.Count)
             {
                 throw new Exception("Invalid id");
@@ -76,7 +76,7 @@ namespace LiteTorrent.TorrentManagerServices
 
         public async Task<List<TorrentInfo>> GetTorrentList()
         {
-            await initialisationTask;
+            await initializationTask;
             List<TorrentInfo> torrentList = new List<TorrentInfo>();
             foreach (var manager in engine.Torrents)
             {

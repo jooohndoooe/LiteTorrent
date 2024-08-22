@@ -10,6 +10,6 @@ namespace LiteTorrent.UserInterface
 {
     internal interface IUserInterface
     {
-        Task Loop(string input, TorrentManagerService torrentManager);
+        Task Run();
     }
 }

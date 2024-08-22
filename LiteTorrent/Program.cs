@@ -12,9 +12,11 @@ using Microsoft.Extensions.DependencyInjection;
 using LiteTorrent.AppConfig;
 using System.Runtime.InteropServices;
 using LiteTorrent.TorrentManagerServices;
+using LiteTorrent.UserInterface.ConsoleUI;
 using LiteTorrent.UserInterface;
+using LiteTorrent.UserInterface.WebUI;
 
-Console.OutputEncoding = Encoding.UTF8;
+/*Console.OutputEncoding = Encoding.UTF8;
 
 const int httpListeningPort = 55125;
 
@@ -37,32 +39,9 @@ services.AddSingleton(
 services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
 services.AddAppSettings();
 services.AddSingleton<TorrentManagerService>();
-services.AddSingleton<ConsoleUserInterface>();
-
+services.AddKeyedSingleton<IUserInterface, ConsoleUserInterface>("cli");
+services.AddKeyedSingleton<IUserInterface, WebUserInterface>("web");
 await using var provider = services.BuildServiceProvider();
 
-/*var torrentManager = provider.GetService<TorrentManagerService>();
-var appConfiguration = provider.GetService<AppConfiguration>();
-foreach (var file in Directory.GetFiles(appConfiguration.TorrentPath))
-{
-    Console.WriteLine(file);
-    byte[] torrentBytes = File.ReadAllBytes(file);
-    await torrentManager.AddTorrent(torrentBytes);
-}
-
-while(torrentManager.isRunning())
-{
-    Console.Clear();
-    Console.WriteLine("\x1b[3J");
-    torrentManager.toConsole();
-    await Task.Delay(1000);
-}
-*/
-
-var consoleUI = provider.GetService<ConsoleUserInterface>();
-consoleUI.Greeting();
-while (consoleUI.isRunning)
-{
-    string input = Console.ReadLine();
-    await consoleUI.Loop(input, provider.GetService<TorrentManagerService>());
-}
+var consoleUI = provider.GetRequiredKeyedService<IUserInterface>("web");
+await consoleUI.Run();*/
