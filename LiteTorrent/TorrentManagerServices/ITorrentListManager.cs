@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LiteTorrent.TorrentManagerServices
 {
-    internal interface ITorrentListManager
+    public interface ITorrentListManager
     {
         Task<List<TorrentInfo>> GetTorrentList();
     }

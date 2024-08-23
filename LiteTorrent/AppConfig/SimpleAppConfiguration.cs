@@ -10,7 +10,7 @@ namespace LiteTorrent.AppConfig
     {
         public Task<AppConfiguration> GetAppConfiguration()
         {
-            Directory.SetCurrentDirectory(@"..\..\..");
+            //Directory.SetCurrentDirectory(@"..\..\..");
 
             var torrentPath = Path.Combine(Environment.CurrentDirectory, "Torrents");
             if (!Directory.Exists(torrentPath))

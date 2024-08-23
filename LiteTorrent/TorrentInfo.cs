@@ -8,24 +8,13 @@ using System.Xml;
 
 namespace LiteTorrent
 {
-    class TorrentInfo
+    public class TorrentInfo
     {
-        string Name { get; set; }
-        double TotalCompletion { get; set; }
-        int TotalFiles { get; set; }
-        List<string> FileNames { get; set; }
-        List<Double> Completion { get; set; }
-        string state { get; set; }
-
-        public TorrentInfo()
-        {
-            Name = "";
-            TotalCompletion = 0;
-            TotalFiles = 0;
-            FileNames = new List<string>();
-            Completion = new List<Double>();
-            state = "";
-        }
+        public string Name { get; set; }
+        public double TotalCompletion { get; set; }
+        public int TotalFiles { get; set; }
+        public List<FileInfo> Files { get; set; } = new List<FileInfo>();
+        public string state { get; set; }
 
         public void Update(TorrentManager manager)
         {
@@ -34,8 +23,9 @@ namespace LiteTorrent
             TotalFiles = manager.Files.Count;
             foreach (var file in manager.Files)
             {
-                FileNames.Add(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + Name.Length + 2));
-                Completion.Add(file.BitField.PercentComplete);
+                FileInfo fileInfo = new FileInfo();
+                fileInfo.Update(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + Name.Length + 2), file.BitField.PercentComplete);
+                Files.Add(fileInfo);
             }
             state = manager.State.ToString();
         }
@@ -46,7 +36,7 @@ namespace LiteTorrent
             Console.WriteLine(Name + " " + state + " " + Utils.ProgressBar((int)TotalCompletion, 10) + " " + Math.Round(TotalCompletion, 2) + "%");
             for (int i = 0; i < TotalFiles; i++)
             {
-                Console.WriteLine((i + 1) + ". " + FileNames[i] + " " + Utils.ProgressBar((int)Completion[i], 10) + " " + Math.Round(Completion[i], 2) + "%");
+                Console.WriteLine((i + 1) + ". " + Files[i].Name + " " + Utils.ProgressBar((int)Files[i].Completion, 10) + " " + Math.Round(Files[i].Completion, 2) + "%");
             }
         }
 

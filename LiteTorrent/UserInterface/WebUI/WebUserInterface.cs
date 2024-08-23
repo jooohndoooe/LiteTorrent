@@ -39,9 +39,10 @@ namespace LiteTorrent.UserInterface.WebUI
             }
             );
 
+            builder.Services.AddHostedService<TorrentHostedService>();
             builder.Services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
             builder.Services.AddAppSettings();
-            builder.Services.AddSingleton<TorrentManagerService>();
+            builder.Services.AddTorrentManager();
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();

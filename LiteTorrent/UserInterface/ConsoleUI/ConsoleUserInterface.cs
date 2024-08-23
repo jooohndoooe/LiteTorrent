@@ -19,6 +19,7 @@ namespace LiteTorrent.UserInterface.ConsoleUI
 
         public async Task Run()
         {
+            Console.OutputEncoding = Encoding.UTF8;
             Greeting();
             while (isRunning)
             {

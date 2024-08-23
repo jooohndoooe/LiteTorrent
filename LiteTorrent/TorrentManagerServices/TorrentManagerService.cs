@@ -14,7 +14,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace LiteTorrent.TorrentManagerServices
 {
-    internal class TorrentManagerService : ITorrentManager, ITorrentListManager
+    public class TorrentManagerService : ITorrentManager, ITorrentListManager, ITorrentEngine
     {
         private ClientEngine engine;
         private AppConfiguration appConfiguration;
@@ -70,7 +70,10 @@ namespace LiteTorrent.TorrentManagerServices
             foreach (var file in Directory.GetFiles(appConfiguration.TorrentPath))
             {
                 byte[] torrentBytes = File.ReadAllBytes(file);
-                await AddTorrentPrivate(torrentBytes);
+                try
+                {
+                    await AddTorrentPrivate(torrentBytes);
+                }catch (Exception e) { }
             }
         }
 

@@ -16,12 +16,11 @@ using LiteTorrent.UserInterface.ConsoleUI;
 using LiteTorrent.UserInterface;
 using LiteTorrent.UserInterface.WebUI;
 
-/*Console.OutputEncoding = Encoding.UTF8;
 
 const int httpListeningPort = 55125;
 
 var services = new ServiceCollection();
-services.AddSingleton(
+/*services.AddSingleton(
     new EngineSettingsBuilder
     {
         AllowPortForwarding = true,
@@ -38,10 +37,10 @@ services.AddSingleton(
 
 services.AddSingleton(provider => new ClientEngine(provider.GetRequiredService<EngineSettingsBuilder>().ToSettings()));
 services.AddAppSettings();
-services.AddSingleton<TorrentManagerService>();
+services.AddSingleton<TorrentManagerService>();*/
 services.AddKeyedSingleton<IUserInterface, ConsoleUserInterface>("cli");
 services.AddKeyedSingleton<IUserInterface, WebUserInterface>("web");
 await using var provider = services.BuildServiceProvider();
 
 var consoleUI = provider.GetRequiredKeyedService<IUserInterface>("web");
-await consoleUI.Run();*/
+await consoleUI.Run();

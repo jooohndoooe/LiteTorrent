@@ -9,7 +9,7 @@ using MonoTorrent.Client;
 
 namespace LiteTorrent.TorrentManagerServices
 {
-    internal interface ITorrentManager
+    public interface ITorrentManager
     {
         Task AddTorrent(byte[] torrentBytes);
         Task RemoveTorrent(int id);
