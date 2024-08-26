@@ -12,9 +12,11 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
     public class TorrentController : ControllerBase
     {
         private ITorrentListManager torrentListManager;
-        public TorrentController(ITorrentListManager torrentListManager)
+        private ITorrentManager torrentManager;
+        public TorrentController(ITorrentListManager torrentListManager, ITorrentManager torrentManager)
         {
             this.torrentListManager = torrentListManager;
+            this.torrentManager = torrentManager;
         }
 
         [HttpGet, Route("api/torrent")]
@@ -28,6 +30,17 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
         public async Task<IActionResult> Health()
         {
             return Ok("Healthy");
+        }
+
+        [HttpDelete, Route("api/torrent/delete/{id}")]
+        public async Task<IActionResult> RemoveTorrent(int id)
+        {
+            Console.WriteLine(id+"\n\n\n\n\n\n");
+            if (id <= 0) {
+                return BadRequest();
+            }
+            await torrentManager.RemoveTorrent(id);
+            return Ok(true);
         }
     }
 }
