@@ -13,6 +13,7 @@ using LiteTorrent.TorrentManagerServices;
 using LiteTorrent.UserInterface.ConsoleUI;
 using LiteTorrent.UserInterface;
 using LiteTorrent.UserInterface.WebUI;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace LiteTorrent.UserInterface.WebUI
 {
@@ -47,10 +48,14 @@ namespace LiteTorrent.UserInterface.WebUI
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
+            builder.Services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
             var app = builder.Build();
 
             app.UseHttpsRedirection();
-            app.UseAuthorization();
             app.MapControllers();
             app.Run();
         }

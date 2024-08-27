@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.IO.Pipelines;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace LiteTorrent.UserInterface.WebUI.Controllers
 {
+    [ApiController]
     public class TorrentController : ControllerBase
     {
         private ITorrentListManager torrentListManager;
@@ -32,15 +34,27 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
             return Ok("Healthy");
         }
 
-        [HttpDelete, Route("api/torrent/delete/{id}")]
-        public async Task<IActionResult> RemoveTorrent(int id)
+        [HttpDelete, Route("/api/torrent/{id}")]
+        public async Task<IActionResult> RemoveTorrent([FromRoute] int id)
         {
-            Console.WriteLine(id+"\n\n\n\n\n\n");
-            if (id <= 0) {
+            if (id <= 0)
+            {
                 return BadRequest();
             }
             await torrentManager.RemoveTorrent(id);
-            return Ok(true);
+            return NoContent();
+        }
+
+        [HttpPost, Route("/api/torrent")]
+        public async Task<IActionResult> AddTorrent([FromForm] IFormFile file)
+        {
+            //var form = await Request.ReadFormAsync();
+            //var file = form.Files.FirstOrDefault();
+            //var file = files[0];
+            var ms = new MemoryStream();
+            await file.CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            return Ok();
         }
     }
 }
