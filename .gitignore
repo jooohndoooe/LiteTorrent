@@ -12,6 +12,7 @@
 LiteTorrent/Downloads/
 LiteTorrent/Torrents/
 LiteTorrent/cache
+LiteTorrent/Test/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

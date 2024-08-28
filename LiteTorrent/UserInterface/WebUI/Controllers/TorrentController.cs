@@ -48,12 +48,10 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
         [HttpPost, Route("/api/torrent")]
         public async Task<IActionResult> AddTorrent([FromForm] IFormFile file)
         {
-            //var form = await Request.ReadFormAsync();
-            //var file = form.Files.FirstOrDefault();
-            //var file = files[0];
             var ms = new MemoryStream();
             await file.CopyToAsync(ms);
             var bytes = ms.ToArray();
+            await torrentManager.AddTorrent(bytes);
             return Ok();
         }
     }
