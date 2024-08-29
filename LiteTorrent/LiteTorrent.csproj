@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UserInterface\WebUI\lite-torrent\**" />
+    <Content Remove="UserInterface\WebUI\lite-torrent\**" />
+    <EmbeddedResource Remove="UserInterface\WebUI\lite-torrent\**" />
+    <None Remove="UserInterface\WebUI\lite-torrent\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MonoTorrent" Version="3.0.2" />
   </ItemGroup>
 

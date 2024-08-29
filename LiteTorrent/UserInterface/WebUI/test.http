@@ -4,6 +4,9 @@
 GET {{server}}/api/health
 
 ###
+GET {{server}}/api/torrent
+
+###
 DELETE {{server}}/api/torrent/1
 
 ###
@@ -14,5 +17,5 @@ Content-Type: multipart/form-data; boundary=MfnBoundry
 Content-Disposition: form-data; name="file"; filename="file.torrent"
 Content-Type: application/octet-stream
 
-< C:\Users\ustin\Downloads\(Modern Hard Rock) Smells Ai Music Project - Broken Hopes - 2024, MP3, 320 kbps [rutracker-6562306].torrent
+< ../../Test/4.torrent
 --MfnBoundry--

@@ -23,8 +23,11 @@ namespace LiteTorrent.UserInterface.WebUI
         {
             const int httpListeningPort = 55125;
 
-            var builder = WebApplication.CreateBuilder();
-
+            var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+            {
+                WebRootPath = "C:\\Users\\ustin\\source\\repos\\LiteTorrent\\LiteTorrent\\UserInterface\\WebUI\\ui\\build\\"
+            });
+            //builder.WebHost.UseWebRoot("C:\\Users\\ustin\\source\\repos\\LiteTorrent\\LiteTorrent\\UserInterface\\WebUI\\ui\\build\\");
             builder.Services.AddSingleton(
             new EngineSettingsBuilder
             {
@@ -57,6 +60,8 @@ namespace LiteTorrent.UserInterface.WebUI
 
             app.UseHttpsRedirection();
             app.MapControllers();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.Run();
         }
     }
