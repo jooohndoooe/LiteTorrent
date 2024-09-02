@@ -4,8 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    // <Navbar/>
-    <div>vsdb</div>
+    <Navbar/>
   );
 }
 

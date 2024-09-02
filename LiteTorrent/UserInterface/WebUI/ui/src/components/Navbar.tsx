@@ -1,19 +1,19 @@
 import React, {useState} from "react";
+import styles from './Navbar.module.css';
 
-function Navbar(){
+const Navbar: React.FC<{}> = () => {
     return(
-        <div>
-            <nav className="navbar">
-                <a href ="/" className="site-title">LiteTorrent</a>
-                <ul>
-                    <li>
-                        <button>Add Torrent</button>
-                    </li>
-                    <li>
-                        <button>Remove Torrent</button>
-                    </li>
-                </ul>
-            </nav>
+        <div className={styles.navbar}>
+            <div className={styles['logo-container']}>
+                <img src={require('../logo.png')}  height="20px"/>
+                iteTorrent
+            </div>
+            <button className={styles['button-container']}>
+                Add Torrent
+            </button>
+            <button className={styles['button-container']}>
+                Remove Torrent
+            </button>
         </div>
     )
 }
