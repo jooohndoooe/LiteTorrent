@@ -1,0 +1,16 @@
+.progressbar{
+    width: 10%;
+    height: 30px;
+    border-radius: 10px;
+    background: #bcb7ad;
+}
+.progressbar-fill{
+    height: 100%;
+    width: 75%;
+    border-radius: 10px;
+    background: #2ecc71;
+    transition: width 0.5s ease-out;
+}
+.progress-label{
+    
+}

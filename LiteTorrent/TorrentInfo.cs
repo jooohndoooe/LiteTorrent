@@ -12,7 +12,6 @@ namespace LiteTorrent
     {
         public string Name { get; set; }
         public double TotalCompletion { get; set; }
-        public int TotalFiles { get; set; }
         public List<FileInfo> Files { get; set; } = new List<FileInfo>();
         public string state { get; set; }
 
@@ -20,7 +19,6 @@ namespace LiteTorrent
         {
             Name = manager.Name;
             TotalCompletion = manager.Progress;
-            TotalFiles = manager.Files.Count;
             foreach (var file in manager.Files)
             {
                 FileInfo fileInfo = new FileInfo();
@@ -34,7 +32,7 @@ namespace LiteTorrent
         {
             Console.WriteLine();
             Console.WriteLine(Name + " " + state + " " + Utils.ProgressBar((int)TotalCompletion, 10) + " " + Math.Round(TotalCompletion, 2) + "%");
-            for (int i = 0; i < TotalFiles; i++)
+            for (int i = 0; i < Files.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + Files[i].Name + " " + Utils.ProgressBar((int)Files[i].Completion, 10) + " " + Math.Round(Files[i].Completion, 2) + "%");
             }
