@@ -13,8 +13,18 @@ const ProgressBar: React.FC<{}> = () => {
             }
             loadState();
         }, []);
-
-
+    
+    var getColor = (p: number) => {
+        if(p < 40){
+            return "#ff0000";
+        }
+        else if(p < 70){
+            return "ffa500";
+        }
+        else{
+            return "2ecc71";
+        }
+    };
     // return(
     //     <div>
     //         {
@@ -26,7 +36,7 @@ const ProgressBar: React.FC<{}> = () => {
     return(
         <div>
             <div className = {styles.progressbar}>
-                <div className = {styles['progressbar-fill']}>
+                <div className = {styles['progressbar-fill']} style = {{width: `${progress}%`, backgroundColor: getColor(progress)}}>
                 </div>
             </div>
             <div className = {styles['progress-label']}>
