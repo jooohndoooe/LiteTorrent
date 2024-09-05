@@ -94,6 +94,9 @@ namespace LiteTorrent.TorrentManagerServices
                 }
                 torrentList.Insert(i, info);
             }
+            for (int i = 0; i < torrentList.Count; i++) {
+                torrentList[i].SetId(i);
+            }
             return torrentList;
         }
 

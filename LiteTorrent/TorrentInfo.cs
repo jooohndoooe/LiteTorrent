@@ -10,6 +10,7 @@ namespace LiteTorrent
 {
     public class TorrentInfo
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public double TotalCompletion { get; set; }
         public List<FileInfo> Files { get; set; } = new List<FileInfo>();
@@ -17,6 +18,7 @@ namespace LiteTorrent
 
         public void Update(TorrentManager manager)
         {
+            Id = -1;
             Name = manager.Name;
             TotalCompletion = manager.Progress;
             foreach (var file in manager.Files)
@@ -26,6 +28,10 @@ namespace LiteTorrent
                 Files.Add(fileInfo);
             }
             state = manager.State.ToString();
+        }
+
+        public void SetId(int id) {
+            Id = id;
         }
 
         public void ToConsole()

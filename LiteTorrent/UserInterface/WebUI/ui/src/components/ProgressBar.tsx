@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
 import styles from './ProgressBar.module.css';
-import { loadTorrents } from "./api";
+import { loadTorrents, Torrent} from "./api";
 
 const ProgressBar: React.FC<{}> = () => {
-    const[progress, setProgress] = useState(0);
+    const t = new Torrent();
+    const[torrents, setTorrents] = useState(new Array<Torrent>());
 
     useEffect(
         () => {
             async function loadState(){
                 const result = await loadTorrents();
-                setProgress(result[0].totalCompletion);
+                setTorrents(result);
             }
             loadState();
         }, []);
@@ -25,25 +26,23 @@ const ProgressBar: React.FC<{}> = () => {
             return "2ecc71";
         }
     };
-    // return(
-    //     <div>
-    //         {
-    //             torrents.map()
-    //         }
-    //     </div>
-    // )
 
-    return(
-        <div>
+    const torrentList = torrents.map(torrent => 
+        <div key = {torrent.id} className = {styles.torrent}>
+            <div className={styles.title}>
+                {(torrent.id + 1).toString() + ". " + torrent.name}
+            </div>
             <div className = {styles.progressbar}>
-                <div className = {styles['progressbar-fill']} style = {{width: `${progress}%`, backgroundColor: getColor(progress)}}>
+                <div className = {styles['progressbar-fill']} style = {{width: `${torrent.totalCompletion}%`, backgroundColor: getColor(torrent.totalCompletion)}}>
                 </div>
             </div>
             <div className = {styles['progress-label']}>
-                {progress}%
+                {torrent.totalCompletion}%
             </div>
         </div>
     )
+
+    return(<div className={styles['torrent-list']}>{torrentList}</div>);
 }
 
 export default ProgressBar;

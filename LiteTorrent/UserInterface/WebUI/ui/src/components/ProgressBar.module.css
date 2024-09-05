@@ -1,5 +1,26 @@
+.torrent-list{
+    width:100%;
+    margin-top: 10px;
+}
+
+.torrent{
+    width:100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(50px, auto);
+    margin: 10px;
+    font-size: 15px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    align-items: center;
+}
+
+.title{
+    grid-column: 1;
+}
+
 .progressbar{
-    width: 10%;
+    grid-column: 2;
     height: 30px;
     border-radius: 10px;
     background: #bcb7ad;
@@ -12,5 +33,5 @@
     transition: width 0.5s ease-out;
 }
 .progress-label{
-    
+    grid-column: 3;
 }
