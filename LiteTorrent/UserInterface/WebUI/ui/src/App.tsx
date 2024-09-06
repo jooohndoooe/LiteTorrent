@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar';
-import ProgressBar from './components/ProgressBar';
+import TorrentList from './components/TorrentList';
 import styles from './App.module.css';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
         <Navbar/>
       </div>
       <div className={styles.progressbar}>
-        <ProgressBar/>
+        <TorrentList/>
       </div>
     </div>
   );

@@ -1,20 +1,23 @@
 import React, {useEffect, useState} from "react";
-import styles from './ProgressBar.module.css';
-import { loadTorrents, Torrent} from "./api";
+import styles from './Torrent.module.css';
+import {ITorrent} from "./api";
 
-const ProgressBar: React.FC<{}> = () => {
-    const t = new Torrent();
-    const[torrents, setTorrents] = useState(new Array<Torrent>());
+interface ITorrentInfo{
+    torrent: ITorrent;
+}
 
-    useEffect(
-        () => {
-            async function loadState(){
-                const result = await loadTorrents();
-                setTorrents(result);
-            }
-            loadState();
-        }, []);
+export const TorrentRow: React.FC<ITorrentInfo> = (torrentInfo: ITorrentInfo) => {
+    var torrent = torrentInfo.torrent;
+    const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+
+    const handleMouseEnter = () => {
+        setBackgroundColor("#d0d0d0");
+    }
     
+    const handleMouseLeave = () => {
+        setBackgroundColor("#ffffff");
+    }
+
     var getColor = (p: number) => {
         if(p < 40){
             return "#ff0000";
@@ -27,8 +30,8 @@ const ProgressBar: React.FC<{}> = () => {
         }
     };
 
-    const torrentList = torrents.map(torrent => 
-        <div key = {torrent.id} className = {styles.torrent}>
+    return(
+        <div className={styles.torrent} onMouseOver={handleMouseEnter} onMouseOut={handleMouseLeave} style={{backgroundColor: backgroundColor}}>
             <div className={styles.title}>
                 {(torrent.id + 1).toString() + ". " + torrent.name}
             </div>
@@ -40,9 +43,6 @@ const ProgressBar: React.FC<{}> = () => {
                 {torrent.totalCompletion}%
             </div>
         </div>
-    )
-
-    return(<div className={styles['torrent-list']}>{torrentList}</div>);
+    );
 }
 
-export default ProgressBar;

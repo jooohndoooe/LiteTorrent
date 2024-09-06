@@ -1,4 +1,11 @@
-export class TorrentFile{
+import { inherits } from "util";
+
+export interface ITorrentFile{
+    completion: number;
+    name: string;
+}
+
+export class TorrentFile implements ITorrentFile{
     completion: number;
     name: string;
 
@@ -8,7 +15,15 @@ export class TorrentFile{
     }
 }
 
-export class Torrent{
+export interface ITorrent{
+    id: number;
+    files: TorrentFile[];
+    name: string;
+    state: string;
+    totalCompletion: number;
+}
+
+export class Torrent implements ITorrent{
     id: number;
     files: TorrentFile[];
     name: string;
