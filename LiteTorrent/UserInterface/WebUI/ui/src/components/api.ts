@@ -1,21 +1,19 @@
-import { inherits } from "util";
-
-export interface ITorrentFile{
+export interface ITorrentFile {
     completion: number;
     name: string;
 }
 
-export class TorrentFile implements ITorrentFile{
+export class TorrentFile implements ITorrentFile {
     completion: number;
     name: string;
 
-    constructor(){
+    constructor() {
         this.completion = -1;
         this.name = "undefined";
     }
 }
 
-export interface ITorrent{
+export interface ITorrent {
     id: number;
     files: TorrentFile[];
     name: string;
@@ -23,14 +21,14 @@ export interface ITorrent{
     totalCompletion: number;
 }
 
-export class Torrent implements ITorrent{
+export class Torrent implements ITorrent {
     id: number;
     files: TorrentFile[];
     name: string;
     state: string;
     totalCompletion: number;
 
-    constructor(){
+    constructor() {
         this.id = -1;
         this.files = new Array<TorrentFile>();
         this.name = "undefined";
@@ -41,7 +39,7 @@ export class Torrent implements ITorrent{
 
 
 
-export async function loadTorrents():Promise<Torrent[]> {
+export async function loadTorrents(): Promise<Torrent[]> {
     const result = await (await fetch("/api/torrent")).json();
     return result;
 }

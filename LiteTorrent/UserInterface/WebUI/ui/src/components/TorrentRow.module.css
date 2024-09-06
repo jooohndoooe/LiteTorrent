@@ -1,5 +1,5 @@
-.torrent{
-    width:98%;
+.torrent {
+    width: 98%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -8,29 +8,28 @@
     font-size: 15px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     align-items: center;
-    /* padding-left: 10px; */
-    /* padding-right: 10px; */
     border-radius: 10px;
 }
 
-.title{
+.title {
     grid-column: 1;
     padding-left: 10px;
 }
 
-.progressbar{
+.progressbar {
     grid-column: 2;
     height: 30px;
     border-radius: 10px;
     background: #bcb7ad;
 }
-.progressbar-fill{
+
+.progressbar-fill {
     height: 100%;
     width: 50%;
     border-radius: 10px;
-    background-color: #cc2e9a;
     transition: width 0.5s ease-out;
 }
-.progress-label{
+
+.progress-label {
     grid-column: 3;
 }

@@ -37,7 +37,7 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
         [HttpDelete, Route("/api/torrent/{id}")]
         public async Task<IActionResult> RemoveTorrent([FromRoute] int id)
         {
-            if (id <= 0)
+            if (id < 0)
             {
                 return BadRequest();
             }

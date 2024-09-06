@@ -1,16 +1,16 @@
-.app{
+.app {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0px;
     grid-auto-rows: minmax(50px, auto);
 }
 
-.navbar{
+.navbar {
     grid-column: 1 / 4;
     grid-row: 1;
 }
 
-.progressbar{
+.progressbar {
     grid-column: 1 / 4;
     grid-row: 2;
 }
