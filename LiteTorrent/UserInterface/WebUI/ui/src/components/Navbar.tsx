@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import styles from './Navbar.module.css';
 
 interface INavbar {
@@ -5,11 +6,30 @@ interface INavbar {
 }
 
 const Navbar: React.FC<INavbar> = (navbarInfo: INavbar) => {
-    const remove = () => {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    const handleOnChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files;
+        if (!files) {
+            return;
+        }
+        const file = files[0];
+        console.log(file);
+
+        const buffer = await file.arrayBuffer();
+        let byteArray = new Int8Array(buffer);
+        await fetch('/api/torrent/' + byteArray, {method: 'POST'});
+    }
+
+    const add = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (!inputRef || !inputRef.current) { return; }
+        inputRef.current.click();
+    }
+
+    const remove = async() => {
         if (navbarInfo.selectedId >= 0) {
-            console.log('start');
-            fetch('/api/torrent/' + navbarInfo.selectedId, { method: 'DELETE' });
-            console.log('end');
+            await fetch('/api/torrent/' + navbarInfo.selectedId, { method: 'DELETE' });
         }
     }
 
@@ -19,9 +39,15 @@ const Navbar: React.FC<INavbar> = (navbarInfo: INavbar) => {
                 <img src={require('../logo.png')} height="20px" />
                 iteTorrent
             </div>
-            <button className={styles['button-container']}>
+            <button className={styles['button-container']} onClick={add}>
                 Add Torrent
             </button>
+            <input
+                type="file"
+                ref={inputRef}
+                hidden
+                onChange={handleOnChange}
+            />
             <button className={styles['button-container']} onClick={remove}>
                 Remove Torrent
             </button>

@@ -37,8 +37,6 @@ export class Torrent implements ITorrent {
     }
 }
 
-
-
 export async function loadTorrents(): Promise<Torrent[]> {
     const result = await (await fetch("/api/torrent")).json();
     return result;
