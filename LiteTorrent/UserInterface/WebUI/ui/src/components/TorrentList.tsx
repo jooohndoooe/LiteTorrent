@@ -19,6 +19,7 @@ const TorrentList: React.FC<ITorrentList> = (torrentListInfo: ITorrentList) => {
                 setTorrents(result);
             }
             loadState();
+            setInterval(loadState, 1000);
         }, []);
 
     const torrentList = torrents.map(_torrent =>

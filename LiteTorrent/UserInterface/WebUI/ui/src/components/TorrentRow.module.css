@@ -11,6 +11,10 @@
     border-radius: 10px;
 }
 
+.torrent:hover{
+    background-color: #d0d0d0;
+}
+
 .title {
     grid-column: 1;
     padding-left: 10px;

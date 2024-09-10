@@ -14,11 +14,9 @@ const Navbar: React.FC<INavbar> = (navbarInfo: INavbar) => {
             return;
         }
         const file = files[0];
-        console.log(file);
-
-        const buffer = await file.arrayBuffer();
-        let byteArray = new Int8Array(buffer);
-        await fetch('/api/torrent/' + byteArray, {method: 'POST'});
+        const formData = new FormData();
+        formData.append('file', file);
+        await fetch('/api/torrent', {method: 'POST', body: formData});
     }
 
     const add = (e: React.MouseEvent<HTMLButtonElement>) => {

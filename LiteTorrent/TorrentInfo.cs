@@ -24,7 +24,7 @@ namespace LiteTorrent
             foreach (var file in manager.Files)
             {
                 FileInfo fileInfo = new FileInfo();
-                fileInfo.Update(file.FullPath.Substring(Path.Combine(Environment.CurrentDirectory, "Downloads").Length + Name.Length + 2), file.BitField.PercentComplete);
+                fileInfo.Update(Path.GetFileName(file.FullPath), file.BitField.PercentComplete);
                 Files.Add(fileInfo);
             }
             state = manager.State.ToString();
