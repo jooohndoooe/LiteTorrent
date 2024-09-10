@@ -2,24 +2,15 @@ import React, { useState } from "react";
 import styles from './TorrentRow.module.css';
 import { ITorrent } from "./api";
 
-interface ITorrentRow {
+interface TorrentRowProps {
     torrent: ITorrent;
     selectedId: number;
     setSelectedId: Function;
 }
 
-export function TorrentRow(torrentRowInfo: ITorrentRow) {
-    var torrent = torrentRowInfo.torrent;
-    // const [rowbBackgroundColor, setRowBackgroundColor] = useState("#ffffff");
+export function TorrentRow(props: TorrentRowProps) {
+    var torrent = props.torrent;
 
-    // const handleMouseEnter = () => {
-    //     setRowBackgroundColor("#d0d0d0");
-    // }
-    // const handleMouseLeave = () => {
-    //     setRowBackgroundColor("#ffffff");
-    // }
-    
-    console.log(torrent.totalCompletion);
     var progressColor = "#bcb7ad";
     if (torrent.totalCompletion < 40) {
         progressColor = "#ff0000";
@@ -32,16 +23,16 @@ export function TorrentRow(torrentRowInfo: ITorrentRow) {
     }
 
     var borderStyle = "none";
-    if (torrentRowInfo.selectedId == torrent.id) {
+    if (props.selectedId == torrent.id) {
         borderStyle = "solid";
     }
 
     const setSelected = () => {
-        torrentRowInfo.setSelectedId(torrent.id);
+        props.setSelectedId(torrent.id);
     }
 
     return (
-        <div className={styles.torrent} onClick={setSelected} style={{borderStyle: borderStyle }}>
+        <div className={styles.torrent} onClick={setSelected} style={{ borderStyle: borderStyle }}>
             <div className={styles.title}>
                 {(torrent.id + 1).toString() + ". " + torrent.name}
             </div>
@@ -50,7 +41,7 @@ export function TorrentRow(torrentRowInfo: ITorrentRow) {
                 </div>
             </div>
             <div className={styles['progress-label']}>
-                {torrent.totalCompletion}%
+                {Math.round(torrent.totalCompletion * 100) / 100}%
             </div>
         </div>
     );

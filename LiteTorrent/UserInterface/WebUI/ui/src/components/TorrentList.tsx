@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from "react";
 import styles from './TorrentList.module.css';
-import { loadTorrents, Torrent } from "./api";
+import { Torrent } from "./api";
 import { TorrentRow } from "./TorrentRow";
 
-interface ITorrentList {
+interface TorrentListProps {
     selectedId: number;
     setSelectedId: Function;
+    torrents: Torrent[];
 }
 
-const TorrentList: React.FC<ITorrentList> = (torrentListInfo: ITorrentList) => {
-    const t = new Torrent();
-    const [torrents, setTorrents] = useState(new Array<Torrent>());
-
-    useEffect(
-        () => {
-            async function loadState() {
-                const result = await loadTorrents();
-                setTorrents(result);
-            }
-            loadState();
-            setInterval(loadState, 1000);
-        }, []);
-
-    const torrentList = torrents.map(_torrent =>
+export function TorrentList(props: TorrentListProps) {
+    const torrentList = props.torrents.map(_torrent =>
         <div key={_torrent.id}>
-            <TorrentRow torrent={_torrent} selectedId={torrentListInfo.selectedId} setSelectedId={torrentListInfo.setSelectedId} />
+            <TorrentRow torrent={_torrent} selectedId={props.selectedId} setSelectedId={props.setSelectedId} />
         </div>
     )
 

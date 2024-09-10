@@ -41,3 +41,14 @@ export async function loadTorrents(): Promise<Torrent[]> {
     const result = await (await fetch("/api/torrent")).json();
     return result;
 }
+
+export function addTorrent(inputRef: React.RefObject<HTMLInputElement>) {
+    if (!inputRef || !inputRef.current) { return; }
+    inputRef.current.click();
+}
+
+export async function removeTorrent(selectedId: number) {
+    if (selectedId >= 0) {
+        await fetch('/api/torrent/' + selectedId, { method: 'DELETE' });
+    }
+}

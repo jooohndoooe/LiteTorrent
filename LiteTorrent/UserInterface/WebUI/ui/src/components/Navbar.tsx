@@ -1,14 +1,15 @@
 import { useRef } from 'react';
 import styles from './Navbar.module.css';
+import { addTorrent, removeTorrent } from "./api";
 
-interface INavbar {
+interface NavbarProps {
     selectedId: number;
 }
 
-const Navbar: React.FC<INavbar> = (navbarInfo: INavbar) => {
+export function Navbar(props: NavbarProps) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const handleOnChange = async(e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files) {
             return;
@@ -16,19 +17,16 @@ const Navbar: React.FC<INavbar> = (navbarInfo: INavbar) => {
         const file = files[0];
         const formData = new FormData();
         formData.append('file', file);
-        await fetch('/api/torrent', {method: 'POST', body: formData});
+        await fetch('/api/torrent', { method: 'POST', body: formData });
     }
 
     const add = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if (!inputRef || !inputRef.current) { return; }
-        inputRef.current.click();
+        addTorrent(inputRef);
     }
 
-    const remove = async() => {
-        if (navbarInfo.selectedId >= 0) {
-            await fetch('/api/torrent/' + navbarInfo.selectedId, { method: 'DELETE' });
-        }
+    const remove = async () => {
+        removeTorrent(props.selectedId);
     }
 
     return (
