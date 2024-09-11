@@ -1,18 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-
-using MonoTorrent;
-using MonoTorrent.Client;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using LiteTorrent.AppConfig;
-using System.Runtime.InteropServices;
-using LiteTorrent.TorrentManagerServices;
-using LiteTorrent.UserInterface.ConsoleUI;
+﻿using LiteTorrent.UserInterface.ConsoleUI;
 using LiteTorrent.UserInterface;
 using LiteTorrent.UserInterface.WebUI;
 

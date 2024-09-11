@@ -1,18 +1,7 @@
 ﻿using LiteTorrent.TorrentManagerServices;
 using MonoTorrent.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
 using LiteTorrent.AppConfig;
-using System.Runtime.InteropServices;
-using LiteTorrent.TorrentManagerServices;
-using LiteTorrent.UserInterface.ConsoleUI;
-using LiteTorrent.UserInterface;
-using LiteTorrent.UserInterface.WebUI;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace LiteTorrent.UserInterface.WebUI
@@ -27,7 +16,6 @@ namespace LiteTorrent.UserInterface.WebUI
             {
                 WebRootPath = "C:\\Users\\ustin\\source\\repos\\LiteTorrent\\LiteTorrent\\UserInterface\\WebUI\\ui\\build\\"
             });
-            //builder.WebHost.UseWebRoot("C:\\Users\\ustin\\source\\repos\\LiteTorrent\\LiteTorrent\\UserInterface\\WebUI\\ui\\build\\");
             builder.Services.AddSingleton(
             new EngineSettingsBuilder
             {

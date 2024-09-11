@@ -1,13 +1,5 @@
 ﻿using LiteTorrent.TorrentManagerServices;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.IO.Pipelines;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace LiteTorrent.UserInterface.WebUI.Controllers
 {
@@ -45,8 +37,6 @@ namespace LiteTorrent.UserInterface.WebUI.Controllers
             await torrentManager.RemoveTorrent(id);
             return NoContent();
         }
-
-        //public async Task<IActionResult> AddTorrent([FromForm] IFormFile file)
 
         [HttpPost, Route("/api/torrent")]
         public async Task<IActionResult> AddTorrent([FromForm] IFormFile file)
