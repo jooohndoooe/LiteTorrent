@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from './TorrentRow.module.css';
 import { ITorrent } from "./api";
 
@@ -41,7 +40,7 @@ export function TorrentRow(props: TorrentRowProps) {
                 </div>
             </div>
             <div className={styles['progress-label']}>
-                {Math.round(torrent.totalCompletion * 100) / 100}%
+                {(Math.round(torrent.totalCompletion * 100) / 100).toString() + '% ' + torrent.state}
             </div>
         </div>
     );

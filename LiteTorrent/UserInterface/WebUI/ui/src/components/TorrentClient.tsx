@@ -13,7 +13,7 @@ function TorrentClient(props: TorrentClientProps) {
             <div className={styles.navbar} onClick={() => { props.setSelectedId(-1); }}>
                 <Navbar selectedId={props.selectedId} />
             </div>
-            <div className={styles.progressbar}>
+            <div className={styles['torrent-list']}>
                 <TorrentListContainer selectedId={props.selectedId} setSelectedId={props.setSelectedId} />
             </div>
         </div>

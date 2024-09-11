@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadTorrents, Torrent } from "./api";
-import TorrentList from "./TorrentList";
+import {TorrentList} from "./TorrentList";
 
 interface TorrentListContinerProps {
     selectedId: number;

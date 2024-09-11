@@ -2,3 +2,20 @@
     width: 100%;
     margin-top: 10px;
 }
+
+.torrent-info {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    /* gap: 10px; */
+    grid-auto-rows: minmax(25px, auto);
+    margin: 1vw;
+}
+
+.torrent-row {
+    grid-column: 1 / 11;
+    grid-row: 1/3;
+}
+
+.torrent-details {
+    grid-column: 2/11;
+}
