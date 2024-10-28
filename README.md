@@ -10,13 +10,17 @@ Both versions use the MonoTorrent library to interact with torrent files, enabli
 - Download Torrent Files: Easily initiate and manage torrent downloads;
 - Cross-Platform: Works on Windows, macOS, and Linux (wherever .NET Core is supported);
 - Console and Web Interface: Choose between a React-based UI for web access or a simple console application via command line flag
+
+&nbsp;
   
-## Table of Contents
+# Table of Contents
 - Requirements
 - Installation
 - Usage
   - Website Version
   - Console Version
+
+&nbsp;
 
 ## Requirements
 .NET 6.0 or later
@@ -68,7 +72,7 @@ dotnet run --project LiteTorrent/UserInterface/WebUI
 
 Access the application in your browser at http://localhost:5000.
 
-### Console Version
+## Console Version
 Navigate to the console version:
 
 ```
