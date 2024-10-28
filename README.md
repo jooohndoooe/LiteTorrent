@@ -1,16 +1,16 @@
 # LiteTorrent
 
-An ASP.Net application designed for downloading torrent files. This repository contains two versions of the application:
-- A web-based version built with ASP.Net and a React frontend;
-- A console-based version for users who prefer a command-line interface.
+An asp.net core application designed for downloading torrent files. Application supports two type of user interface:
+- A web-based UI build with React
+- A console-based UI
 
 Both versions use the MonoTorrent library to interact with torrent files, enabling reliable and efficient torrent downloading and management.
 
 ## Features
 - Download Torrent Files: Easily initiate and manage torrent downloads;
 - Cross-Platform: Works on Windows, macOS, and Linux (wherever .NET Core is supported);
-- Console and Web Interface: Choose between a React-based UI for web access or a simple console application.
-
+- Console and Web Interface: Choose between a React-based UI for web access or a simple console application via command line flag
+  
 ## Table of Contents
 - Requirements
 - Installation
@@ -53,20 +53,17 @@ npm install
 ```
 dotnet build
 ```
+```
+npm build
+```
 
 ## Usage
 
 ### Website Version
-Start the ASP.Net backend:
+Start the backend:
 
 ```
 dotnet run --project LiteTorrent/UserInterface/WebUI
-```
-Start the React frontend:
-
-```
-cd lite-torrent
-npm start
 ```
 
 Access the application in your browser at http://localhost:5000.
