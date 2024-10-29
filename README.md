@@ -63,26 +63,26 @@ npm build
 
 ## Usage
 
+```
+cd LiteTorrent/
+```
+
 ### Website Version
-Start the backend:
+Run the web app:
 
 ```
-dotnet run --project LiteTorrent/UserInterface/WebUI
+dotnet run web
 ```
 
 Access the application in your browser at http://localhost:5000.
 
 ## Console Version
-Navigate to the console version:
 
-```
-cd LiteTorrent/UserInterface/ConsoleUI
-```
 
 Run the console app:
 
 ```
-dotnet run
+dotnet run cli
 ```
 
 Follow on-screen instructions to download and manage torrents.
